@@ -17,21 +17,31 @@ class PersonFollower(object):
         
         # Check if nothing is in front of the robot
         if data.ranges[0] == float("inf"):
-            # Turn the robot
+            # The angular z velocity 
+            z = 0.5
+
+            # Rotate the robot clockwise if the object is to the robot's right
+            for i in  range(180,360):
+                if data.ranges[i] != float("inf"):
+                    z = -1.0 * z 
+                    break
+            
+            # Turn the robot in place
             self.twist.linear.x = 0.0
-            self.twist.angular.z = 0.4
+            self.twist.angular.z = z
+
         # Check if the robot is too close to the object
         elif data.ranges[0] < 0.5:
             # Stop the robot
-            print("Is digit is true with the value: " + str(data.ranges[0]))
             self.twist.linear.x = 0.0
             self.twist.angular.z = 0.0
         
         else:
-            # Move the robot forward
-            self.twist.linear.x = 0.3
+            # Move the robot forward if there is an object in its sight
+            self.twist.linear.x = 0.4
             self.twist.angular.z = 0.0
-            
+
+        # Publish the new angular and linear velocities 
         self.pub.publish(self.twist)
 
 
