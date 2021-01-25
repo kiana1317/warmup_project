@@ -15,12 +15,17 @@ The goal of this robot behavior was to get the robot to drive in a square patter
 I structured my code following the object-oriented layout outlined during class. As such, I initialized the class by calling the publisher node "/cmd_vel" to gain access to the robot's linear and angular velocity: the linear velocity for moving the robot forward and the angular velocity for shifting directions. Moreover, I added in a 1 second pause to ensure the publisher is fully connected before publishing any data to it. <br /> <br /> 
 For the run function, I created a while loop that instructs the robot to move forward for a moment and then turn counterclockwise by 90 degrees. To send the robot forward, a linear x rate of 0.1 is published to the publisher. After a 4 second interval, the linear velocity is halted, and the angular velocity is changed to 0.3980 to facilitate a 90 degree turn over the course of 4 seconds. This loop is repeated to send the robot on a square path. As mentioned earlier, the variable offset is the value added to the calculated angular velocity to compensate for the discrepancies in the stopping and accelerating mechanisms in the robot.
 ### Demo 
-![Alt Text](https://raw.githubusercontent.com/kiana1317/Warmup-Intro-to-Robotics/main/gifs/drivesquare.gif?token=AKRDA5LYJ5NSRD2MI223UC3AB4Q24)
+![Driving in a Square Demo](https://raw.githubusercontent.com/kiana1317/Warmup-Intro-to-Robotics/main/gifs/drivesquare.gif?token=AKRDA5LYJ5NSRD2MI223UC3AB4Q24)
 
 ## Wall Follower
-
-### TODO
+### Description
+The goal of this robot behavior was to get a robot located within a square room to follow the walls in the room.
+### Code Structure
+### Demo
+![Wall Follower Demo](https://raw.githubusercontent.com/kiana1317/warmup_project/main/gifs/wall_follower.gif)
 
 ## Person Follower
-
-### TODO
+### Description
+### Code Structure
+### Demo
+![Person Follower Demo](https://raw.githubusercontent.com/kiana1317/warmup_project/main/gifs/person_follower.gif)
