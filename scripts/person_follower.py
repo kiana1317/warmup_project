@@ -14,37 +14,32 @@ class PersonFollower(object):
         self.twist = Twist()
 
     def processScan(self, data):
-        
-        # Check if nothing is in front of the robot
-        if data.ranges[0] == float("inf"):
-            # The angular z velocity 
-            z = 0.5
-
-            # Rotate the robot clockwise if the object is to the robot's right
-            for i in  range(180,360):
-                if data.ranges[i] != float("inf"):
-                    z = -1.0 * z 
-                    break
-            
-            # Turn the robot in place
-            self.twist.linear.x = 0.0
-            self.twist.angular.z = z
-
+        mindist = min(data.ranges)
         # Check if the robot is too close to the object
-        elif data.ranges[0] < 0.5:
+        if data.ranges[0] < 0.5:
             # Stop the robot
             self.twist.linear.x = 0.0
             self.twist.angular.z = 0.0
-        
-        else:
-            # Move the robot forward if there is an object in its sight
-            self.twist.linear.x = 0.4
-            self.twist.angular.z = 0.0
+        # Check if there is an object in the room     
+        elif mindist !=float("inf") :
+            # Do not turn if the object is directly in front of the robot
+            if data.ranges[0] == mindist:
+                z = 0
+            # Turn right if the object is between 180 to 360 degrees
+            elif data.ranges.index(mindist) >= 180:
+                z = -1
+            # Turn left for an object located between 0 and 180 degrees
+            else:
+                z = 1
+            # Set the velocities of the robot
+            self.twist.linear.x = 0.5
+            self.twist.angular.z = z
+
 
         # Publish the new angular and linear velocities 
         self.pub.publish(self.twist)
 
-
+       
     def run(self):
         rospy.spin()
 
