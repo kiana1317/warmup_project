@@ -19,8 +19,12 @@ For the run function, I created a while loop that instructs the robot to move fo
 
 ## Wall Follower
 ### Description
-The goal of this robot behavior was to get a robot located within a square room to follow the walls in the room.
+The goal of this robot behavior was to get a robot located within a square room to follow the walls in the room continuously. To tackle this problem, the robot first drove forward to find a wall. Once the robot found a wall, it rotated counterclockwise until the robot was facing a new wall. Moreover, while driving towards the new wall small adjustments are made to the robot’s angular velocity to keep the robot running parallel to the wall. This process is repeated as the robot rounds the room.
 ### Code Structure
+"init": Initializes the subscriber and publisher topics. Also, a twist object is created to update the velocity of the robot and a global variable to track whether the robot came in contact with a wall.
+</br>
+"process_scan": In part 1 of the function, the robot moves forward until it comes within a distance of 1 from a wall. In part 2, if the robot is within the turning distance, the robot rotates at a proportional control rate until the robot is facing an object further away than the turning point. If the robot is outside of the turning distance, it goes forward while receiving slight angular adjustments to keep it going straight.
+</br>
 ### Demo
 ![Wall Follower Demo](https://raw.githubusercontent.com/kiana1317/warmup_project/main/gifs/wall_follower.gif)
 
