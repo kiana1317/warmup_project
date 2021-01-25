@@ -21,15 +21,19 @@ For the run function, I created a while loop that instructs the robot to move fo
 ### Description
 The goal of this robot behavior was to get a robot located within a square room to follow the walls in the room continuously. To tackle this problem, the robot first drove forward to find a wall. Once the robot found a wall, it rotated counterclockwise until the robot was facing a new wall. Moreover, while driving towards the new wall small adjustments are made to the robot’s angular velocity to keep the robot running parallel to the wall. This process is repeated as the robot rounds the room.
 ### Code Structure
-"init": Initializes the subscriber and publisher topics. Also, a twist object is created to update the velocity of the robot and a global variable to track whether the robot came in contact with a wall.
-</br>
-"process_scan": In part 1 of the function, the robot moves forward until it comes within a distance of 1 from a wall. In part 2, if the robot is within the turning distance, the robot rotates at a proportional control rate until the robot is facing an object further away than the turning point. If the robot is outside of the turning distance, it goes forward while receiving slight angular adjustments to keep it going straight.
-</br>
+"init": Initializes the subscriber and publisher topics. Also, a twist object is created to update the velocity of the robot and a global variable to track whether the robot encountered a wall.
+</br> </br>
+"processScan": In part 1 of the function, the robot moves forward until it comes within 1 distance from a wall. In part 2, if the robot is within the turning distance, the robot rotates at a proportional control rate until the robot is facing an object further away than the turning point. If the robot is outside of the turning distance, it goes forward while receiving slight angular adjustments to keep it going straight.
+</br></br>
 ### Demo
 ![Wall Follower Demo](https://raw.githubusercontent.com/kiana1317/warmup_project/main/gifs/wall_follower.gif)
 
 ## Person Follower
 ### Description
+The goal of this robot behavior was to get a robot to follow an object located in an empty room. To achieve this, I determined if there was an object in the room and if so, I had the robot to turn and move in the object's direction.
 ### Code Structure
+"init": Initializes the subscriber and publisher topics. Also, a twist object is created to update the velocity of the robot.
+</br></br>
+"processScan": In the function, first the minimum value in the scan ranges is found. Next, the function checks if the robot is within stopping range of the object. Following, the function determines if there are any objects placed in the space. If so, the function proceeds by iterating through the degrees in the scan ranges to find where the object is located. Depending on if the value lies to the left or right of the robot, the robot will turn towards the object and follow the person/object.
 ### Demo
 ![Person Follower Demo](https://raw.githubusercontent.com/kiana1317/warmup_project/main/gifs/person_follower.gif)
